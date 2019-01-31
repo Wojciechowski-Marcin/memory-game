@@ -3,23 +3,29 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2041
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemoryGame", "MemoryGame\MemoryGame.csproj", "{A1CCCBC4-DD5E-405A-93BD-9477CD7B5C21}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MemoryGame", "MemoryGame\MemoryGame.vcxproj", "{3C51A3DE-D404-4320-BFA5-F35547260D8E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A1CCCBC4-DD5E-405A-93BD-9477CD7B5C21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A1CCCBC4-DD5E-405A-93BD-9477CD7B5C21}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A1CCCBC4-DD5E-405A-93BD-9477CD7B5C21}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A1CCCBC4-DD5E-405A-93BD-9477CD7B5C21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C51A3DE-D404-4320-BFA5-F35547260D8E}.Debug|x64.ActiveCfg = Debug|x64
+		{3C51A3DE-D404-4320-BFA5-F35547260D8E}.Debug|x64.Build.0 = Debug|x64
+		{3C51A3DE-D404-4320-BFA5-F35547260D8E}.Debug|x86.ActiveCfg = Debug|Win32
+		{3C51A3DE-D404-4320-BFA5-F35547260D8E}.Debug|x86.Build.0 = Debug|Win32
+		{3C51A3DE-D404-4320-BFA5-F35547260D8E}.Release|x64.ActiveCfg = Release|x64
+		{3C51A3DE-D404-4320-BFA5-F35547260D8E}.Release|x64.Build.0 = Release|x64
+		{3C51A3DE-D404-4320-BFA5-F35547260D8E}.Release|x86.ActiveCfg = Release|Win32
+		{3C51A3DE-D404-4320-BFA5-F35547260D8E}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {F8F87B8E-F26F-47AC-8ED1-9CC78E9A80D7}
+		SolutionGuid = {D89CA315-4DD4-43CC-8155-6EE56BF75C0D}
 	EndGlobalSection
 EndGlobal
