@@ -136,7 +136,10 @@ namespace MemoryGame {
 			this->Controls->Add(this->numericUpDown1);
 			this->Controls->Add(this->label_win);
 			this->Controls->Add(this->bStartGame);
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
+			this->MaximizeBox = false;
 			this->Name = L"MyForm";
+			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Memory";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown1))->EndInit();
 			this->ResumeLayout(false);
@@ -145,7 +148,7 @@ namespace MemoryGame {
 		}
 #pragma endregion
 	private:
-
+		System::Decimal size;
 		cli::array<wchar_t>^ labels;
 		int clicks = 0;
 		Object^ prevClickedButtonId;
@@ -178,7 +181,7 @@ namespace MemoryGame {
 		System::Void bStartGame_Click(System::Object^  sender, System::EventArgs^  e) {
 			
 			
-			System::Decimal size = numericUpDown1->Value;
+			size = numericUpDown1->Value;
 
 			this->ClientSize = System::Drawing::Size(safe_cast<int>(size * 62) - 20, safe_cast<int>(size*62) );
 			
@@ -221,8 +224,6 @@ namespace MemoryGame {
 				labels[first] = labels[second];
 				labels[second] = tmp;
 			}
-
-			//TODO shuffle array // DONE
 		}
 
 		int objectToInt(Object^ tag) {
@@ -303,6 +304,14 @@ namespace MemoryGame {
 			bStartGame->Enabled = true;
 			label_win->Visible = true;
 			numericUpDown1->Visible = true;
+			clicks = 0;
+			prevClickedButtonId = nullptr;
+			clickedButtonId = nullptr;
+
+			int i = 3;
+			while(this->Controls->Count != 3) {
+				this->Controls->RemoveAt(i);
+			}
 
 		}
 
@@ -336,15 +345,7 @@ namespace MemoryGame {
 					}
 			}
 			if (checkIfWin()) {
-				
-					
-					for (int i = 1; i <= 36; i++) {
-						wchar_t tmp = (wchar_t)i;
-						this->Controls->Remove(findButton(tmp));
-						
-				}
 				gameWon();
-				
 			}
 		}
 	
