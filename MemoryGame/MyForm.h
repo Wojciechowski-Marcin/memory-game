@@ -2,6 +2,10 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
+#include <cstdlib>
+#include <cstdio>
+#include <ctime>
+
 #include <msclr\marshal_cppstd.h>
 namespace MemoryGame {
 
@@ -24,6 +28,7 @@ namespace MemoryGame {
 			//
 			//TODO: Add the constructor code here
 			//
+			srand(time(NULL));
 		}
 
 	protected:
@@ -335,7 +340,9 @@ namespace MemoryGame {
 			it->MoveNext();
 			while (it->MoveNext()) {
 				Button^ btn = (Button^)it->Current;
+				btn->Text = "";
 				btn->Visible = true;
+				btn->Enabled = true;
 			}
 		}
 
@@ -356,10 +363,22 @@ namespace MemoryGame {
 			bStartGame->Enabled = false;
 			label_win->Visible = false;
 
+			
 			labels = gcnew cli::array<wchar_t> (16);
-			for (int i = 0; i < 8; i++) {
-				labels[i] = i + 49;
-				labels[8+i] = i + 49;
+			for (int i = 0; i < 8; ++i) {
+				labels[i] = i + 65;
+				labels[i+8] = i + 65;
+
+			}
+			int number_of_shuffles = rand() % 30;
+			for (int i = 0; i < number_of_shuffles; i++) {
+
+				int first = rand() % 16;
+				int second = rand() % 16;
+
+				int tmp = labels[first];
+				labels[first] = labels[second];
+				labels[second] = tmp;
 			}
 
 			//TODO shuffle array
@@ -437,13 +456,15 @@ namespace MemoryGame {
 			clickedButtonId = tag;
 			button->Text = labels[objectToInt(clickedButtonId)].ToString();
 
-			if (clicks == 2) {
-				Button^ btn1 = findButton(prevClickedButtonId);
-				Button^ btn2 = findButton(clickedButtonId);
-				if (btn1->Text == btn2->Text) {
-					btn1->Enabled = false;
-					btn2->Enabled = false;
-				}
+			if (prevClickedButtonId == clickedButtonId)
+				clicks=1;
+			else if (clicks == 2) {
+					Button^ btn1 = findButton(prevClickedButtonId);
+					Button^ btn2 = findButton(clickedButtonId);
+					if (btn1->Text == btn2->Text) {
+						btn1->Enabled = false;
+						btn2->Enabled = false;
+					}
 			}
 			if (checkIfWin()) {
 				gameWon();

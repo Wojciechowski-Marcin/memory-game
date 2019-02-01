@@ -1,5 +1,6 @@
 #include "MyForm.h"
-#include <windows.h>
+#include <windows.h>
+
 using namespace System;
 using namespace System::ComponentModel;
 using namespace System::Collections;
