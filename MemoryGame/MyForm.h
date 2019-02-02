@@ -44,26 +44,6 @@ namespace MemoryGame {
 		}
 	private: System::Windows::Forms::Button^  bStartGame;
 
-
-	private: System::Windows::Forms::Button^  button1;
-	private: System::Windows::Forms::Button^  button2;
-	private: System::Windows::Forms::Button^  button3;
-	private: System::Windows::Forms::Button^  button4;
-	private: System::Windows::Forms::Button^  button5;
-
-
-	private: System::Windows::Forms::Button^  button8;
-	private: System::Windows::Forms::Button^  button9;
-	private: System::Windows::Forms::Button^  button10;
-	private: System::Windows::Forms::Button^  button11;
-	private: System::Windows::Forms::Button^  button12;
-	private: System::Windows::Forms::Button^  button13;
-	private: System::Windows::Forms::Button^  button14;
-	private: System::Windows::Forms::Button^  button15;
-	private: System::Windows::Forms::Button^  button16;
-	private: System::Windows::Forms::Button^  button7;
-	private: System::Windows::Forms::Button^  button6;
-
 	private: System::Windows::Forms::Label^  label_win;
 	private: System::Windows::Forms::NumericUpDown^  numericUpDown1;
 
@@ -90,13 +70,12 @@ namespace MemoryGame {
 			// 
 			// bStartGame
 			// 
-			this->bStartGame->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(224)),
-				static_cast<System::Int32>(static_cast<System::Byte>(192)));
-			this->bStartGame->Font = (gcnew System::Drawing::Font(L"MV Boli", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
+			this->bStartGame->BackColor = System::Drawing::SystemColors::ButtonFace;
+			this->bStartGame->Font = (gcnew System::Drawing::Font(L"Segoe UI", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(238)));
 			this->bStartGame->Location = System::Drawing::Point(12, 91);
 			this->bStartGame->Name = L"bStartGame";
-			this->bStartGame->Size = System::Drawing::Size(232, 67);
+			this->bStartGame->Size = System::Drawing::Size(239, 67);
 			this->bStartGame->TabIndex = 36;
 			this->bStartGame->Text = L"Start new game!";
 			this->bStartGame->UseVisualStyleBackColor = false;
@@ -105,11 +84,11 @@ namespace MemoryGame {
 			// label_win
 			// 
 			this->label_win->AutoSize = true;
-			this->label_win->Font = (gcnew System::Drawing::Font(L"MV Boli", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->label_win->Font = (gcnew System::Drawing::Font(L"Segoe UI", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label_win->Location = System::Drawing::Point(12, 67);
+			this->label_win->Location = System::Drawing::Point(21, 67);
 			this->label_win->Name = L"label_win";
-			this->label_win->Size = System::Drawing::Size(232, 21);
+			this->label_win->Size = System::Drawing::Size(212, 21);
 			this->label_win->TabIndex = 55;
 			this->label_win->Text = L"Congratulations, you won!";
 			this->label_win->Visible = false;
@@ -118,7 +97,7 @@ namespace MemoryGame {
 			// 
 			this->numericUpDown1->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) { 2, 0, 0, 0 });
 			this->numericUpDown1->Location = System::Drawing::Point(109, 164);
-			this->numericUpDown1->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 8, 0, 0, 0 });
+			this->numericUpDown1->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 6, 0, 0, 0 });
 			this->numericUpDown1->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 2, 0, 0, 0 });
 			this->numericUpDown1->Name = L"numericUpDown1";
 			this->numericUpDown1->ReadOnly = true;
@@ -130,8 +109,7 @@ namespace MemoryGame {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(192)),
-				static_cast<System::Int32>(static_cast<System::Byte>(128)));
+			this->BackColor = System::Drawing::SystemColors::GradientInactiveCaption;
 			this->ClientSize = System::Drawing::Size(256, 238);
 			this->Controls->Add(this->numericUpDown1);
 			this->Controls->Add(this->label_win);
@@ -153,9 +131,12 @@ namespace MemoryGame {
 		int clicks = 0;
 		Object^ prevClickedButtonId;
 		Object^ clickedButtonId;
-
+		int attempts_number = 0;
+		Button^ attempts;
 		void showGameButtons() {
 			IEnumerator^ it = this->Controls->GetEnumerator();
+			it->MoveNext();
+			it->MoveNext();
 			it->MoveNext();
 			it->MoveNext();
 			it->MoveNext();
@@ -177,14 +158,26 @@ namespace MemoryGame {
 				btn->Visible = false;
 			}
 		}
-
+		System::Void bCancel_Click(System::Object^ sender, System::EventArgs^ e) {
+			gameWon();
+			label_win->Visible = false;
+		}
 		System::Void bStartGame_Click(System::Object^  sender, System::EventArgs^  e) {
 			
 			
 			size = numericUpDown1->Value;
 
-			this->ClientSize = System::Drawing::Size(safe_cast<int>(size * 62) - 20, safe_cast<int>(size*62) );
-			
+			this->ClientSize = System::Drawing::Size(safe_cast<int>(size) * 50 + 24, safe_cast<int>(size)* 50 +80 );
+			Button^ bCancel = (gcnew System::Windows::Forms::Button());
+			bCancel->Location = System::Drawing::Point(12 , safe_cast<int>(size) * 50 + 15);
+			bCancel->Text = "Cancel";
+			bCancel->Size = System::Drawing::Size(safe_cast<int>(size)*50, 30);
+			bCancel->Click += gcnew System::EventHandler(this, &MyForm::bCancel_Click);
+			this->Controls->Add(bCancel);
+
+			attempts = (gcnew System::Windows::Forms::Button());
+			attempts->Location = System::Drawing::Point((safe_cast<int>(size) * 50 + 24)/2 - 37, safe_cast<int>(size) * 50 + 45);
+			this->Controls->Add(attempts);
 
 			for (int i = 0; i < size; i++) {
 				for (int k = 0; k < size; k++) {
@@ -200,6 +193,8 @@ namespace MemoryGame {
 					this->Controls->Add(button1);
 				}
 			}
+			
+
 			showGameButtons();
 			bStartGame->Visible = false;
 			bStartGame->Enabled = false;
@@ -288,6 +283,7 @@ namespace MemoryGame {
 			it->MoveNext();
 			it->MoveNext();
 			it->MoveNext();
+			it->MoveNext();
 			int i = 0;
 			while (it->MoveNext()) {
 				Button^ btn = (Button^)it->Current;
@@ -307,7 +303,7 @@ namespace MemoryGame {
 			clicks = 0;
 			prevClickedButtonId = nullptr;
 			clickedButtonId = nullptr;
-
+			attempts_number = 0;
 			int i = 3;
 			while(this->Controls->Count != 3) {
 				this->Controls->RemoveAt(i);
@@ -326,6 +322,7 @@ namespace MemoryGame {
 					btn1->Text = "";
 					btn2->Text = "";
 				}
+				attempts_number++;
 			}
 
 			Button^ button = (Button^)sender;
@@ -343,10 +340,16 @@ namespace MemoryGame {
 						btn1->Enabled = false;
 						btn2->Enabled = false;
 					}
+					
 			}
 			if (checkIfWin()) {
 				gameWon();
 			}
+
+			
+			
+			attempts->Text = "Attempts: " +attempts_number.ToString();
+			
 		}
 	
 };
